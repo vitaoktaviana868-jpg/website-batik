@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BATIK/ARCHIVE - Batik Indonesia</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+        :root {
+            --cream: #f8f4eb;
+            --paper: #fffdf8;
+            --green: #173f35;
+            --green2: #24584a;
+            --terracotta: #b65e43;
+            --gold: #d5ad70;
+            --ink: #24342e;
+            --muted: #68766d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.75;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(248, 244, 235, .96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #173f3515;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .logo {
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--green);
+        }
+
+        .logo span {
+            color: var(--terracotta);
+        }
+
+        nav a {
+            color: var(--ink);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color .2s;
+        }
+
+        nav a:hover {
+            color: var(--terracotta);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 530px;
+            padding: 90px 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            color: var(--paper);
+            background:
+                radial-gradient(ellipse at 85% 20%, #326657 0, transparent 34%),
+                linear-gradient(120deg, #14372f, #1e4b3e 70%, #163b32);
+        }
+
+        .hero::after {
+            content: '❋';
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%) rotate(-12deg);
+            font-size: clamp(180px, 27vw, 350px);
+            line-height: 1;
+            color: #ffffff0b;
+            pointer-events: none;
+        }
+
+        .label {
+            position: relative;
+            z-index: 1;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            position: relative;
+            z-index: 1;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(46px, 7vw, 82px);
+            line-height: 1.12;
+            font-weight: 600;
+            letter-spacing: -1.5px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #e7c995;
+            font-style: italic;
+        }
+
+        .hero > p:not(.label) {
+            position: relative;
+            z-index: 1;
+            max-width: 570px;
+            color: #e2e9e3;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tombol {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            width: fit-content;
+            background: var(--gold);
+            color: var(--green);
+            padding: 13px 23px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 999px;
+            box-shadow: 0 8px 22px #00000016;
+            transition: transform .25s, background .25s;
+        }
+
+        .tombol:hover {
+            background: #f0d9ac;
+            transform: translateY(-3px);
+        }
+
+        section {
+            padding: 82px 8%;
+        }
+
+        .judul {
+            margin-bottom: 32px;
+        }
+
+        .judul small {
+            color: var(--terracotta);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .judul h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 4vw, 43px);
+            line-height: 1.25;
+            color: var(--green);
+            margin: 9px 0 12px;
+            font-weight: 600;
+        }
+
+        .judul p {
+            color: var(--muted);
+        }
+
+        .tentang {
+            background: var(--paper);
+        }
+
+        .tentang p {
+            max-width: 850px;
+            margin-bottom: 13px;
+            color: #59675f;
+        }
+
+        .daftar-batik,
+        .daftar-makna {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .kartu {
+            background: var(--paper);
+            border: 1px solid #173f3512;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px #183d3010;
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .kartu:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 18px 35px #183d301b;
+        }
+
+        .foto-batik {
+            width: 100%;
+            height: 245px;
+            object-fit: cover;
+            display: block;
+            background: #e8decc;
+            transition: transform .5s;
+        }
+
+        .kartu:hover .foto-batik {
+            transform: scale(1.035);
+        }
+
+        .isi-kartu {
+            padding: 23px 24px 27px;
+        }
+
+        .isi-kartu h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 25px;
+            color: var(--green);
+            margin: 5px 0 9px;
+        }
+
+        .isi-kartu p:last-child {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .asal {
+            color: var(--terracotta);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .makna {
+            background: #e9e6d8;
+        }
+
+        .makna-kartu {
+            background: rgba(255, 253, 248, .8);
+            padding: 27px;
+            border: 1px solid #173f3512;
+            border-radius: 14px;
+        }
+
+        .makna-kartu h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            color: var(--green);
+            margin-bottom: 9px;
+        }
+
+        .makna-kartu p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .penutup {
+            text-align: center;
+            background: var(--paper);
+        }
+
+        .penutup p {
+            max-width: 650px;
+            margin: 0 auto 25px;
+        }
+
+        .penutup .judul {
+            margin-bottom: 26px;
+        }
+
+        footer {
+            background: var(--green);
+            color: #e5ece5;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 12px;
+        }
+
+        footer span {
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        footer p + p {
+            color: #c3d0c7;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 16px 5%;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 9px;
+                font-size: 12px;
+            }
+
+            .hero {
+                min-height: 470px;
+                padding: 70px 7%;
+            }
+
+            .hero::after {
+                right: -8%;
+                top: 72%;
+                font-size: 220px;
+            }
+
+            .daftar-batik,
+            .daftar-makna {
+                grid-template-columns: 1fr;
+            }
+
+            .foto-batik {
+                height: 250px;
+            }
+
+            section {
+                padding: 58px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">BATIK<span>/ARCHIVE</span></div>
+
+        <nav>
+            <a href="#beranda">Beranda</a>
+            <a href="#tentang">Tentang</a>
+            <a href="#sejarah">Sejarah</a>
+            <a href="#koleksi">Jenis Batik</a>
+            <a href="#teknik">Teknik</a>
+            <a href="#makna">Pelestarian</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- BAGIAN BERANDA -->
+        <section class="hero" id="beranda">
+            <p class="label">KOLEKSI 001 / WARISAN NUSANTARA</p>
+
+            <h1>Kain yang<br>Menyimpan <span>Cerita.</span></h1>
+
+            <p>
+                Menjelajahi keindahan batik Indonesia melalui motif,
+                warna, dan filosofi dari berbagai daerah.
+                Setiap pola memiliki cerita dan nilai budaya.
+            </p>
+
+            <a href="#koleksi" class="tombol">Jelajahi Koleksi</a>
+        </section>
+
+        <!-- TENTANG BATIK -->
+        <section class="tentang" id="tentang">
+            <div class="judul">
+                <small>TENTANG BATIK</small>
+                <h2>Lebih dari Sekadar Kain</h2>
+            </div>
+
+            <p>
+                Batik merupakan karya seni tekstil yang berkembang
+                di berbagai daerah Indonesia. Batik memiliki keunikan
+                pada motif, warna, teknik pembuatan, dan makna budayanya.
+            </p>
+
+            <p>
+                Website BATIK/ARCHIVE dibuat sebagai portofolio digital
+                untuk memperkenalkan beberapa jenis batik Indonesia
+                kepada generasi muda.
+            </p>
+        </section>
+
+        <!-- SEJARAH BATIK -->
+        <section class="tentang" id="sejarah">
+            <div class="judul">
+                <small>MENGENAL LEBIH DEKAT</small>
+                <h2>Sejarah Singkat Batik</h2>
+            </div>
+
+            <p>
+                Kata <em>batik</em> merujuk pada teknik menghias kain
+                menggunakan malam atau lilin sebagai perintang warna.
+                Bagian kain yang tertutup malam akan mempertahankan
+                warna dasarnya ketika kain melalui proses pewarnaan.
+            </p>
+
+            <p>
+                Di Indonesia, batik berkembang dengan ciri khas daerah
+                masing-masing. Motif, warna, dan cara pembuatannya
+                dipengaruhi oleh lingkungan, tradisi, serta kehidupan
+                masyarakat setempat. Karena itu, batik bukan hanya kain
+                bermotif, tetapi juga bagian dari cerita budaya.
+            </p>
+
+            <p>
+                Pada 2 Oktober 2009, UNESCO memasukkan batik Indonesia
+                ke dalam Daftar Representatif Warisan Budaya Takbenda
+                Kemanusiaan. Tanggal tersebut kemudian diperingati
+                di Indonesia sebagai Hari Batik Nasional.
+            </p>
+        </section>
+
+        <!-- KOLEKSI MOTIF BATIK -->
+        <section id="koleksi">
+            <div class="judul">
+                <small>ARSIP MOTIF / 01—03</small>
+                <h2>Jenis Batik Indonesia</h2>
+                <p>Mengenal tiga motif batik Nusantara.</p>
+            </div>
+
+            <div class="daftar-batik">
+
+                <article class="kartu">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Batik_pedalaman_-_parang_klithik.JPG"
+                        alt="Kain batik motif Parang"
+                        class="foto-batik"
+                        loading="lazy"
+                    >
+
+                    <div class="isi-kartu">
+                        <p class="asal">01 / JAWA</p>
+                        <h3>Batik Parang</h3>
+                        <p>
+                            Memiliki pola diagonal berulang. Motif ini
+                            sering dimaknai sebagai simbol semangat,
+                            keberanian, dan keteguhan.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="kartu">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Batik_Mega_Mendung.jpg"
+                        alt="Kain batik motif Mega Mendung dari Cirebon"
+                        class="foto-batik"
+                        loading="lazy"
+                    >
+
+                    <div class="isi-kartu">
+                        <p class="asal">02 / CIREBON</p>
+                        <h3>Mega Mendung</h3>
+                        <p>
+                            Memiliki motif berbentuk awan berlapis
+                            yang menjadi ciri khas batik Cirebon.
+                            Motif ini dikenal dengan bentuknya yang khas.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="kartu">
+                    <img
+                        src="https://commons.wikimedia.org/wiki/Special:FilePath/Batik_pattern_-_kawung.jpg"
+                        alt="Kain batik motif Kawung"
+                        class="foto-batik"
+                        loading="lazy"
+                    >
+
+                    <div class="isi-kartu">
+                        <p class="asal">03 / YOGYAKARTA</p>
+                        <h3>Batik Kawung</h3>
+                        <p>
+                            Memiliki pola oval yang tersusun teratur
+                            dan sering dikaitkan dengan keseimbangan
+                            serta pengendalian diri.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- TEKNIK PEMBUATAN BATIK -->
+        <section id="teknik">
+            <div class="judul">
+                <small>DARI TANGAN PERAJIN</small>
+                <h2>Bagaimana Batik Dibuat?</h2>
+                <p>
+                    Proses pembuatan batik dapat berbeda sesuai
+                    teknik dan kebiasaan perajin.
+                </p>
+            </div>
+
+            <div class="daftar-makna">
+
+                <article class="makna-kartu">
+                    <h3>01. Batik Tulis</h3>
+                    <p>
+                        Malam digoreskan pada kain menggunakan canting.
+                        Prosesnya membutuhkan ketelitian dan waktu,
+                        sehingga setiap hasil dapat memiliki detail unik.
+                    </p>
+                </article>
+
+                <article class="makna-kartu">
+                    <h3>02. Batik Cap</h3>
+                    <p>
+                        Malam diterapkan menggunakan alat cap bermotif.
+                        Teknik ini membantu membuat pola berulang
+                        dengan lebih cepat dan teratur.
+                    </p>
+                </article>
+
+                <article class="makna-kartu">
+                    <h3>03. Batik Kombinasi</h3>
+                    <p>
+                        Teknik tulis dan cap dapat dipadukan untuk
+                        menghasilkan motif dengan detail tertentu.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- PELESTARIAN BATIK -->
+        <section class="makna" id="makna">
+            <div class="judul">
+                <small>NILAI BUDAYA</small>
+                <h2>Mengapa Batik Perlu Dilestarikan?</h2>
+            </div>
+
+            <div class="daftar-makna">
+
+                <article class="makna-kartu">
+                    <h3>Identitas Bangsa</h3>
+                    <p>
+                        Batik merupakan bagian dari kekayaan budaya
+                        Indonesia yang perlu dijaga.
+                    </p>
+                </article>
+
+                <article class="makna-kartu">
+                    <h3>Kreativitas</h3>
+                    <p>
+                        Motif dan warna menunjukkan kreativitas
+                        para perajin batik dari berbagai daerah.
+                    </p>
+                </article>
+
+                <article class="makna-kartu">
+                    <h3>Warisan Generasi</h3>
+                    <p>
+                        Mengenal dan memakai batik merupakan salah
+                        satu cara untuk ikut melestarikannya.
+                    </p>
+                </article>
+
+                <article class="makna-kartu">
+                    <h3>Dukung Perajin Lokal</h3>
+                    <p>
+                        Pelajari asal-usul kain dan pilih produk
+                        perajin secara bijak agar keterampilan
+                        membatik terus dihargai.
+                    </p>
+                </article>
+
+                <article class="makna-kartu">
+                    <h3>Kenali Motifnya</h3>
+                    <p>
+                        Setiap motif memiliki latar budaya yang
+                        beragam. Cari tahu cerita dan daerah asalnya.
+                    </p>
+                </article>
+
+                <article class="makna-kartu">
+                    <h3>Bagikan Pengetahuan</h3>
+                    <p>
+                        Kenalkan batik kepada teman dan keluarga
+                        agar generasi berikutnya mengenal warisan
+                        budaya Indonesia.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- PENUTUP -->
+        <section class="penutup">
+            <div class="judul">
+                <small>CATATAN AKHIR</small>
+                <h2>Budaya Hidup dari Kita</h2>
+                <p>
+                    Kenali motifnya, pahami ceritanya,
+                    dan banggakan batik Indonesia.
+                </p>
+            </div>
+
+            <a href="#beranda" class="tombol">Kembali ke Atas</a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 <span>BATIK/ARCHIVE</span></p>
+        <p>Portofolio Jenis Batik Indonesia</p>
+        <p>Nama: Fita Oktafiana</p>
+    </footer>
+
+</body>
+</html>
